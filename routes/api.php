@@ -16,7 +16,7 @@ use App\Http\Controllers\GalleryController;
 Route::post('admin/register',[AdminController::class,'create'])->name('register_admin');
 
 
-Route::post('login',[AdminController::class,'login'])->name('login_admin');
+Route::post('admin/login',[AdminController::class,'login'])->name('login_admin');
 
 
 Route::middleware('auth:sanctum')->group(function(){
