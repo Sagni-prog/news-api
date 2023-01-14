@@ -62,11 +62,14 @@ class AdminController extends Controller
 
     public function login(Request $request){
 
-       $isUser = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+
+
+        $user = User::where('email',$request->email)->first();
+    //    $isUser = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
      
        
-       if($isUser){
-           $user = User::where('email',$request->email)->first();
+       if(Hash::check($request->password, $user->password)){
+        //    $user = User::where('email',$request->email)->first();
            $token = $user->createToken('user_token')->plainTextToken;
                 return response()->json([
                     "token" => $token,
@@ -85,7 +88,11 @@ class AdminController extends Controller
     }
 
     public function logout(){
-        Auth::logout();
+        // Auth::logout();
+        
+        Auth::user()->tokens()->delete();
+
+        Auth::user()->currentAccessToken()->delete();
     }
 
     // public function showUpdateProfile(User $user){
