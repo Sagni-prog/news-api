@@ -11,10 +11,6 @@ use Auth;
 
 class AdminController extends Controller
 {
-    // function getDashboard(){
-    //     return view('admin.admin_panel');
-    // }
-
     public function create(Request $request){
        
             $user = User::create([

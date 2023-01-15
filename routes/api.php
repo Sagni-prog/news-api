@@ -6,6 +6,7 @@ use App\Http\Controllers\RouterController;
 use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\admin\CatagoryController;
+use App\Http\Controllers\admin\SubcatagoryController;
 use App\Http\Controllers\admin\PostController;
 use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\OnlinePollController;
@@ -28,9 +29,11 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/',[AdminController::class,'getAll']);
     Route::post('logout',[AdminController::class,'logout'])->name('user_logout');
 
+    Route::get('catagories',[CatagoryController::class,'index']);
     Route::post('catagory',[CatagoryController::class,'create'])->name('add-catagory');
 
-    Route::post('sub-catagory',[CatagoryController::class,'createSubCatagory'])->name('add-sub-catagory');
+    Route::get('sub-catagories',[SubcatagoryController::class,'index']);
+    Route::post('sub-catagory',[SubcatagoryController::class,'create'])->name('add-sub-catagory');
 });
 
 Route::get('posts',[PostController::class,'showPost']);
