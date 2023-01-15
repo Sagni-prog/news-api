@@ -42,7 +42,7 @@ class AdminController extends Controller
                  $height = $data['height'];
     
                 
-                 $user->photo()->create([
+              $user->photo()->create([
                     "photo_name" => $filename,
                     "photo_path" => $path,
                     "photo_url" => $image_url,
@@ -55,7 +55,7 @@ class AdminController extends Controller
            if($user){
                return response()->json([
                 "token" => $token,
-                "user" => $user
+                "user" => $user,
                ]);
            }
     }
@@ -63,13 +63,9 @@ class AdminController extends Controller
     public function login(Request $request){
 
 
-
-        $user = User::where('email',$request->email)->first();
-    //    $isUser = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+        $user = User::where('email',$request->email)->with('photo')->first();
      
-       
        if(Hash::check($request->password, $user->password)){
-        //    $user = User::where('email',$request->email)->first();
            $token = $user->createToken('user_token')->plainTextToken;
                 return response()->json([
                     "token" => $token,
