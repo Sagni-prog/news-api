@@ -122,7 +122,7 @@ class AdminController extends Controller
              $height = $data['height'];
 
             
-          $user->photo()->create([
+          $user->photo()->update([
                 "photo_name" => $filename,
                 "photo_path" => $path,
                 "photo_url" => $image_url,
@@ -132,7 +132,7 @@ class AdminController extends Controller
 
        }
 
-            return $user;
+            return $user->with('photo')->first();
      }
 
     public function updatePassword(Request $request){
