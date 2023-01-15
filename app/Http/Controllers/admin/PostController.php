@@ -25,18 +25,12 @@ class PostController extends Controller
         // }
  
     }
-    // public function showAddPost(){
-    //     $sub_catagories = Subcatagory::with('catagory')->get();
-
-       
-
-    //     return view('admin.add_post',compact('sub_catagories'));
-    // }
 
     public function create(Request $request){
 
      
-        $posts = Post::create([
+        $posts = Post::create(
+              [
                         'admin_id' => Auth::user()->id,
                         'post_title' => $request->post_title,
                         'post_detail' => $request->post_detail,
@@ -61,36 +55,33 @@ class PostController extends Controller
              $height = $data['height'];
 
 
-             $posts->photo()->create([
-                "photo_name" => $filename,
-                "photo_path" => $path,
-                "photo_url" => $image_url,
-                "photo_width" => $width,
-                "photo_height" => $height
-            ]);
+             $posts->photo()->create(
+                   [
+                        "photo_name" => $filename,
+                        "photo_path" => $path,
+                        "photo_url" => $image_url,
+                        "photo_width" => $width,
+                        "photo_height" => $height
+                  ]
+        );
 
        $tags_array = explode(', ',$request->tags);
        for($i = 0; $i < count($tags_array); $i++){
-           $tags = $posts->tags()->create([
-                 'tag_name' => $tags_array[$i]
-           ]);
-
-           return redirect('posts');
+           $tags = $posts->tags()->create(
+               [
+                    'tag_name' => $tags_array[$i]
+                ]);
              }
           }
        
     }
 
-    
-    // public function showEditPost(Post $post){
-    //     $sub_catagories = Subcatagory::with('catagory')->get();
-    //       return view('admin.post_edit',['post' => $post,'sub_catagories' => $sub_catagories]);
-    // }
 
     public function edit(Request $request,$id){
 
         $post = Post::find($id);
-        $post->update([
+        $post->update(
+            [
                     'post_title' => $request->post_title,
                     'post_detail' => $request->post_detail,
                     'sub_catagory_id' => $request->sub_catagory_id,
@@ -111,13 +102,15 @@ class PostController extends Controller
             $width = $data['width'];
             $height = $data['height'];
 
-            $post->photo()->update([
-                "photo_name" => $filename,
-                "photo_path" => $path,
-                "photo_url" => $image_url,
-                "photo_width" => $width,
-                "photo_height" => $height
-            ]);
+            $post->photo()->update(
+                [
+                    "photo_name" => $filename,
+                    "photo_path" => $path,
+                    "photo_url" => $image_url,
+                    "photo_width" => $width,
+                    "photo_height" => $height
+                ]
+            );
 
             
     if(!$post->tags->count()){
@@ -127,16 +120,17 @@ class PostController extends Controller
                  'tag_name' => $tags_array[$i]
            ]);
         }
-        return redirect('posts');
     }
    
         $tags_array = explode(', ',$request->tags);
         for($i = 0; $i < count($tags_array); $i++){
-        $tags = $post->tags()->update([
-            'tag_name' => $tags_array[$i]
-        ]);
+        $tags = $post->tags()->update(
+            [
 
-        return redirect('posts');
+            'tag_name' => $tags_array[$i]
+
+                ]
+             );
           }
        }
    }
@@ -166,9 +160,9 @@ class PostController extends Controller
     }
 
     
-    public function postLike(Post $post,Request $request){
+    public function postLike(Request $request,$id){
 
-
+         $post = Post::find($id);
          $liker = $post->likes->where('user_id',Auth::user()->id)->first();
 
         if(!$liker){
@@ -185,7 +179,7 @@ class PostController extends Controller
         }
 
         if($like){
-            return back();
+            // return back();
         }
     }
 
@@ -195,6 +189,6 @@ class PostController extends Controller
             'comment' => $request->comment,
           ]);
 
-          return back();
+        //   return back();
     }
 }
