@@ -23,8 +23,8 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::get('users',[AdminController::class,'getAll']);
 
-    Route::post('profile/update',[AdminController::class,'updateProfile'])->name('profile_update');
-    Route::post('profile/update-password',[AdminController::class,'updatePassword'])->name('profile_update-password');
+    Route::post('admin/profile/update',[AdminController::class,'updateProfile'])->name('profile_update');
+    Route::post('/admin/profile/update-password',[AdminController::class,'updatePassword'])->name('profile_update-password');
     Route::get('/',[AdminController::class,'getAll']);
     Route::post('logout',[AdminController::class,'logout'])->name('user_logout');
 

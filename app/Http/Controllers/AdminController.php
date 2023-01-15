@@ -72,6 +72,11 @@ class AdminController extends Controller
                     "user" => $user
                 ]);
         }
+        else{
+            return response()->json([
+                "message" => "Wrong credentials"
+            ]);
+        }
 
     }
 
@@ -91,11 +96,7 @@ class AdminController extends Controller
         Auth::user()->currentAccessToken()->delete();
     }
 
-    // public function showUpdateProfile(User $user){
-
-    //     return view('admin.update_profile',compact('user'));
-    // }
-
+  
     public function updateProfile(Request $request){
 
           $user =  Auth::user()->update([
@@ -103,7 +104,7 @@ class AdminController extends Controller
                 "email" => $request->email
             ]);
 
-            return $user;
+            return Auth::user()->with('photo')->first();
      }
 
     public function updatePassword(Request $request){
