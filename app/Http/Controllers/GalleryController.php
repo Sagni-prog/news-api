@@ -10,10 +10,9 @@ use Auth;
 
 class GalleryCOntroller extends Controller
 {
-    public function showAddGallery(){
-        return view('admin.add_gallery');
+    public function index(){
+      $photo_gallaries = PhotoGallery::with('photo')->get();
     }
-
     public function create(Request $request){
         if($request->hasFile('photo')){
             
@@ -23,7 +22,7 @@ class GalleryCOntroller extends Controller
          $path = $request->file('photo')->storeAs('photo-gallery', $filename);
          $image_url = Storage::url($path);
        
-          $image_url = Storage::url($path);
+        //   $image_url = Storage::url($path);
 
           $data = $this->getDimension($path);
           $width = $data['width'];
@@ -31,8 +30,8 @@ class GalleryCOntroller extends Controller
 
 
           $gallery = PhotoGallery::create([
-            'photo_title' => $request->gallery_title,
-            'photo_description' => $request->gallery_description
+            'photo_title' => $request->photo_title,
+            'photo_description' => $request->photo_description
          ]);
 
          $gallery->photo()->create([
@@ -54,8 +53,6 @@ class GalleryCOntroller extends Controller
 
     public function galleryLike(PhotoGallery $photo){
         $liker = $photo->likes->where('user_id',Auth::user()->id)->first();
-
-     
       
         if(!$liker){
           $like = $photo->likes()->create([
@@ -76,6 +73,7 @@ class GalleryCOntroller extends Controller
     }
     
     public static function getDimension($path){
+
         [$width,$height] = getimagesize(Storage::path($path));
 
         $data = [

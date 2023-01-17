@@ -101,12 +101,9 @@ class HomeController extends Controller
            $post_data = $post_data->with('subCatagory','photo')->get();
 
            $setting = Setting::all()->first();
-        
-
-       
+               
            $sub_catagory = Subcatagory::with('post','catagory')->get();
 
-           
              return view('home.post_by_catagory',compact('post_data','sub_catagory','setting'));
          }
 
@@ -116,7 +113,7 @@ class HomeController extends Controller
             
            $post_data =  $sub_catagory->post;
 
-         $setting = Setting::all()->first();
+           $setting = Setting::all()->first();
      
 
           return view('home.post_by_catagory_2',compact('post_data','sub_catagory','setting'));

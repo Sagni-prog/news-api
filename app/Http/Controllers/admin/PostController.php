@@ -145,7 +145,6 @@ class PostController extends Controller
         else{
             $post->delete();
             $post->tags()->delete();
-            // return redirect('posts');
         }
     }
 
@@ -179,7 +178,7 @@ class PostController extends Controller
         }
 
         if($like){
-            // return back();
+        
         }
     }
 
@@ -189,6 +188,5 @@ class PostController extends Controller
             'comment' => $request->comment,
           ]);
 
-        //   return back();
     }
 }
