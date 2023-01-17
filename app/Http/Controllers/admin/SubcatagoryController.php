@@ -33,22 +33,24 @@ class SubcatagoryController extends Controller
 
     public function edit(Request $request,$id){
 
-        $sub_catagory = Subcatagory::update( [
+        $sub_catagory = Subcatagory::find($id);
+
+        $sub_catagory->update([
             'catagory_id' => $request->catagory_id,
             'sub_catagory_name' => $request->sub_catagory_name,
             'show_on_menu' => $request->show_on_menu,
             'sub_catagory_order' => $request->sub_catagory_order
          ]);
 
-         return response()->json([
-            "sub_catagory" => $sub_catagory
-         ]);
+        //  return response()->json([
+        //     "sub_catagory" => $sub_catagory
+        //  ]);
     }
 
     public function destroy($id){
 
         $sub_catagory = Subcatagory::find($id);
-        $sub_catagory->subCatagories()->delete();
+        $sub_catagory->delete();
     }
     
 }

@@ -36,7 +36,12 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::get('sub-catagories',[SubcatagoryController::class,'index']);
     Route::post('sub-catagory',[SubcatagoryController::class,'create'])->name('add-sub-catagory');
+    Route::post('sub-catagory/sub-catagory-update/{id}',[SubcatagoryController::class,'edit'])->name('edit-sub-catagory');
+    Route::post('sub-catagory/sub-catagory-delete/{id}',[SubcatagoryController::class,'destroy'])->name('delete-add-sub-catagory');
+
+    Route::get('posts',[PostController::class,'index']);
+    Route::post('post',[PostController::class,'create'])->name('add_post');
+    Route::post('post/update-post/{id}',[PostController::class,'edit'])->name('edit_post');
+    Route::post('post/delete-post/{id}',[PostController::class,'destroy'])->name('delete_post');
 });
 
-Route::get('posts',[PostController::class,'showPost']);
-Route::post('post',[PostController::class,'create'])->name('add_post');

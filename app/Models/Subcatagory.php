@@ -22,4 +22,4 @@ class Subcatagory extends Model
            public function post(){
             return $this->hasMany(Post::class,'sub_catagory_id')->orderBy('id','desc');
         }
-        }
+     }
