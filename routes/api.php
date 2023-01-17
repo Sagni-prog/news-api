@@ -31,6 +31,8 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::get('catagories',[CatagoryController::class,'index']);
     Route::post('catagory',[CatagoryController::class,'create'])->name('add-catagory');
+    Route::post('catagory/catagory-update/{id}',[CatagoryController::class,'edit'])->name('update-catagory');
+    Route::post('catagory/catagory-delete/{id}',[CatagoryController::class,'destroy'])->name('delete-catagory');
 
     Route::get('sub-catagories',[SubcatagoryController::class,'index']);
     Route::post('sub-catagory',[SubcatagoryController::class,'create'])->name('add-sub-catagory');

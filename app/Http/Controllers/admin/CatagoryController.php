@@ -4,14 +4,14 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\models\Catagory;
-use App\models\Subcatagory;
+use App\Models\Catagory;
+use App\Models\Subcatagory;
 
 class CatagoryController extends Controller
 {
 
     public function index(){
-          $catagory = Catagory::all()->get();
+          $catagory = Catagory::with('subCatagories')->get();
 
           return response()->json([
             "catagories" => $catagory
