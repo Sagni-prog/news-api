@@ -59,7 +59,6 @@ class GalleryCOntroller extends Controller
 
 
       $photo_gallary = PhotoGallery::where('id',$id)->with('photo')->first();
-      // $photo_gallary = PhotoGallery::find($id)->with('photo')->first();
       
       $gallery = $photo_gallary->update([
         'photo_title' => $request->photo_title,
@@ -72,18 +71,26 @@ class GalleryCOntroller extends Controller
         "photo_url" => $image_url,
         "photo_width" => $width,
         "photo_height" => $height
-       ]);
-    }
+           ]);
+       }
     }
 
-    public function galleryComment(PhotoGallery $photo, Request $request){
+    public function destroy($id){
+
+       $photo_gallary = PhotoGallery::find($id);
+       $photo_gallary->delete();
+       $photo_gallary->photo->delete();
+
+    }
+
+    public function galleryComment(Request $request,$id){
          $photo->comments()->create([
             'user_id' => Auth::user()->id,
             'comment' => $request->comment,
           ]);
     }
 
-    public function galleryLike(PhotoGallery $photo){
+    public function galleryLike($id){
         $liker = $photo->likes->where('user_id',Auth::user()->id)->first();
       
         if(!$liker){

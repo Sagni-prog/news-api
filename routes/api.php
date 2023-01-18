@@ -47,5 +47,9 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/galleries',[GalleryController::class,'index']);
     Route::post('/gallery',[GalleryController::class,'create'])->name('gallery_add');  
     Route::post('/gallery/update-gallery/{id}',[GalleryController::class,'edit'])->name('gallery_update');  
+    Route::post('/gallery/delete-gallery/{id}',[GalleryController::class,'destroy'])->name('gallery_delete');  
+
+    Route::post('/gallery/{id}/comment',[GalleryController::class,'galleryComment'])->name('gallery_comment');  
+    Route::post('/gallery/{id}/like',[GalleryController::class,'galleryLike'])->name('gallery_like');  
 });
 
