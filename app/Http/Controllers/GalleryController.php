@@ -93,6 +93,7 @@ class GalleryCOntroller extends Controller
     }
 
     public function galleryLike($id){
+      $photo = PhotoGallery::find($id);
         $liker = $photo->likes->where('user_id',Auth::user()->id)->first();
       
         if(!$liker){
@@ -109,7 +110,7 @@ class GalleryCOntroller extends Controller
         }
 
         if($like){
-            return back();
+          
         }
     }
     
