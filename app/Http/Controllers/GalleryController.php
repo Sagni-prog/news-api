@@ -44,6 +44,36 @@ class GalleryCOntroller extends Controller
         }
     }
 
+    public function edit(Request $request,$id){
+      if($request->hasFile('photo')){
+            
+        $ext = $request->file('photo')->extension();
+        $filename = 'gallery-' . time() . '.' . $ext;
+        
+     $path = $request->file('photo')->storeAs('photo-gallery', $filename);
+     $image_url = Storage::url($path);
+   
+      $data = $this->getDimension($path);
+      $width = $data['width'];
+      $height = $data['height'];
+
+
+      $photo_gallary = PhotoGallery::with('photo')->get();
+      $gallery = $photo_gallary->update([
+        'photo_title' => $request->photo_title,
+        'photo_description' => $request->photo_description
+     ]);
+
+     $gallery->photo()->update([
+        "photo_name" => $filename,
+        "photo_path" => $path,
+        "photo_url" => $image_url,
+        "photo_width" => $width,
+        "photo_height" => $height
+       ]);
+    }
+    }
+
     public function galleryComment(PhotoGallery $photo, Request $request){
          $photo->comments()->create([
             'user_id' => Auth::user()->id,

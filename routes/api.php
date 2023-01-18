@@ -46,5 +46,6 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::get('/galleries',[GalleryController::class,'index']);
     Route::post('/gallery',[GalleryController::class,'create'])->name('gallery_add');  
+    Route::post('/gallery/update-gallery/{id}',[GalleryController::class,'edit'])->name('gallery_update');  
 });
 
