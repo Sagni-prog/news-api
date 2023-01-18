@@ -84,6 +84,8 @@ class GalleryCOntroller extends Controller
     }
 
     public function galleryComment(Request $request,$id){
+
+      $photo = PhotoGallery::find($id);
          $photo->comments()->create([
             'user_id' => Auth::user()->id,
             'comment' => $request->comment,
