@@ -58,13 +58,15 @@ class GalleryCOntroller extends Controller
       $height = $data['height'];
 
 
-      $photo_gallary = PhotoGallery::with('photo')->get();
+      $photo_gallary = PhotoGallery::where('id',$id)->with('photo')->first();
+      // $photo_gallary = PhotoGallery::find($id)->with('photo')->first();
+      
       $gallery = $photo_gallary->update([
         'photo_title' => $request->photo_title,
         'photo_description' => $request->photo_description
      ]);
 
-     $gallery->photo()->update([
+     $photo_gallary->photo()->update([
         "photo_name" => $filename,
         "photo_path" => $path,
         "photo_url" => $image_url,
