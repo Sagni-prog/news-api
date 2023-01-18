@@ -16,7 +16,7 @@ class PostController extends Controller
 {
     public function index(){
 
-       $posts = Post::with('subCatagory','author')->get();
+       $posts = Post::with('subCatagory','catagory','author')->get();
 
        return $posts;
 
@@ -49,6 +49,7 @@ class PostController extends Controller
                         'admin_id' => Auth::user()->id,
                         'post_title' => $request->post_title,
                         'post_detail' => $request->post_detail,
+                        'catagory_id' => $request->catagory_id,
                         'sub_catagory_id' => $request->sub_catagory_id,
                         'is_sharable' => $request->is_sharable,
                         'is_commentable' => $request->is_commentable
@@ -99,6 +100,7 @@ class PostController extends Controller
             [
                     'post_title' => $request->post_title,
                     'post_detail' => $request->post_detail,
+                    'catagory_id' => $request->catagory_id,
                     'sub_catagory_id' => $request->sub_catagory_id,
                     'is_sharable' => $request->is_sharable,
                     'is_commentable' => $request->is_commentable

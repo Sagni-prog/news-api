@@ -11,7 +11,7 @@ class CatagoryController extends Controller
 {
 
     public function index(){
-          $catagory = Catagory::with('subCatagories')->get();
+          $catagory = Catagory::with('subCatagories','posts')->get();
 
           return response()->json([
             "catagories" => $catagory

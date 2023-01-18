@@ -14,6 +14,7 @@ class Post extends Model
                             'author_id',
                             'post_title',
                             'post_detail',
+                            'catagory_id',
                             'sub_catagory_id',
                             'visitors',
                             'is_sharable',

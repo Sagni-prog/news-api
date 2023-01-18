@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('author_id')->unsigned()->nullable();
             $table->string('post_title');
             $table->text('post_detail');
+            $table->integer('catagory_id')->unsigned()->nullable();
             $table->integer('sub_catagory_id')->unsigned()->nullable();
             $table->integer('visitors')->unsigned()->nullable()->default(0);
             $table->boolean('is_sharable')->nullable()->default(true);
