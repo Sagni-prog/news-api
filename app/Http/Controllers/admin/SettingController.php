@@ -10,7 +10,9 @@ class SettingController extends Controller
 {
     public function index(){
         $setting = Setting::all()->first();
-        return view('admin.setting',compact('setting'));
+        return response()->json([
+            "settings" => $setting
+        ]);
     }
 
     public function create(Request $request){
@@ -20,16 +22,13 @@ class SettingController extends Controller
                 'news_ticker_number' => $request->news_ticker_number,
                 'news_ticker_status' => $request->news_ticker_status
             ]);
-
-            return back();
         }
         else{
             Setting::all()->first()->update([
                 'news_ticker_number' => $request->news_ticker_number,
                 'news_ticker_status' => $request->news_ticker_status
             ]);
-            
-            return back();
+        
         }
     }
 }

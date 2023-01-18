@@ -26,6 +26,21 @@ class PostController extends Controller
  
     }
 
+    public function recentNews(){
+        $recent_news = Post::orderBy('id','desc')->get();
+        return response()->json([
+            "recent_news" => $recent_news
+        ]);
+    }
+
+    public function popularNews(){
+
+        $popular_news = Post::orderBy('visitors','desc')->get();
+        return response()->json([
+            "popular_news" => $popular_news
+        ]);
+    }
+
     public function create(Request $request){
 
      
