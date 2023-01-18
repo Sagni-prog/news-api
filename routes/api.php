@@ -43,6 +43,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('post',[PostController::class,'create'])->name('add_post');
     Route::post('post/update-post/{id}',[PostController::class,'edit'])->name('edit_post');
     Route::post('post/delete-post/{id}',[PostController::class,'destroy'])->name('delete_post');
+    Route::get('posts/recent-news',[PostController::class,'recentNews']);
+    Route::get('posts/popular-news',[PostController::class,'popularNews']);
 
     Route::get('/galleries',[GalleryController::class,'index']);
     Route::post('/gallery',[GalleryController::class,'create'])->name('gallery_add');  
