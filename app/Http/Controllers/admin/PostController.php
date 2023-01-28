@@ -18,7 +18,9 @@ class PostController extends Controller
 
        $posts = Post::with('subCatagory','catagory','author')->get();
 
-       return $posts;
+       return response()->json([
+            "posts" => $posts
+       ]);
 
         // if (Auth::user()->cannot('view', $posts)) {
         //     abort(403);
